@@ -1,3 +1,4 @@
+import time
 import PySimpleGUI as sg
 import pyautogui as pag
 from clipboard import copy
@@ -8,9 +9,12 @@ from clipboard import copy
 try:
     pos = pag.position()
     R, G, B = pag.pixel(pos.x, pos.y)
-    copy(f'#{R:02x}{G:02x}{B:02x}')
-    print("Color copied", ":)")
+    color = f'#{R:02x}{G:02x}{B:02x}'.upper()
+    copy(color)
 except Exception as e:
-    sg.SystemTray.notify("Whoops", str(e))
-    print("Whoops", str(e))
+    tray = sg.SystemTray.notify("Whoops", str(e))
+    time.sleep(500)
+    tray.close()
+
+
 
